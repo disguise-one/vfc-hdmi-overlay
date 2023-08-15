@@ -1,0 +1,67 @@
+;
+; VFC.INF - This file overrides default INPUT.INF power behavioure
+;
+
+[Version]
+Signature   ="$WINDOWS NT$"
+Class       =DisguiseWDF
+ClassGuid   ={2bd52755-65f2-4f6e-969e-ef627c7e56d1}
+Provider    =%VendorName%
+DriverVer   =08/27/2020,1.0.0.4
+CatalogFile =VFC.cat
+
+; ================= Class section =====================
+[ClassInstall32]
+Addreg=DisguiseWDFClassReg     
+
+[DisguiseWDFClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+;*****************************************
+; Install Section
+;*****************************************
+[Manufacturer]
+%VendorName% = disguiseDevice,NTamd64
+
+[disguiseDevice.NTamd64]
+%vfc_hdmi.DeviceDesc% = VFC_HDMI_Device_Install, USB\VID_0403&PID_6030 
+
+[VFC_HDMI_Device_Install.NT] 
+include     = input.inf
+needs       = HID_Inst.NT
+
+[VFC_HDMI_Device_Install.NT.HW]
+AddReg = VFC_HDMI_Device_Install.AddReg.NT.HW
+DelReg = VFC_HDMI_Device_Install.DelReg.NT.HW
+
+[VFC_HDMI_Device_Install.NT.Services]
+include     = input.inf
+needs       = HID_Inst.NT.Services
+
+[VFC_HDMI_Device_Install.AddReg.NT.HW]
+; Defaults
+HKR,,"SelectiveSuspendEnabled",0x00000001,0
+HKR,,"EnhancedPowerManagementEnabled",0x00010001,0
+HKR,,"AllowIdleIrpInD3",0x00010001,0x1
+HKR,,"LegacyTouchScaling",0x00010001,0
+HKR,,"WriteReportExSupported",0x00010001,0x1
+HKR,,"DeviceResetNotificationEnabled",0x00010001,1
+; Custom
+[HKR,,DeviceType,0x10001,device-type] 
+
+[VFC_HDMI_Device_Install.DelReg.NT.HW]
+; Remove the ExtPropDescSemaphore flag in case it is present from a previous install
+HKR,,"ExtPropDescSemaphore"
+
+[Strings]
+VendorName = "disguise"
+DiskName   = "disguise Installation Disk"
+vfc_hdmi.DeviceDesc = "VFC HDMI"
+ClassName      ="disguise"
