@@ -1,4 +1,4 @@
-# VFC_HDMI_Overlay
+# HDMI VFC Driver Overlay (FT260)
 
 ## Installing the update
 1. Download and unzip the kit provided above. It includes the devcon.exe CLI tool, and the overlay itself (VFC.inf)
