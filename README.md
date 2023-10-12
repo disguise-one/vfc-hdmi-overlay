@@ -2,9 +2,9 @@
 
 ## Installing the update
 1. Download and unzip the kit provided above. It includes the devcon.exe CLI tool, and the overlay itself (VFC.inf)
-2. Enter the folder with Administartor Powerhshell and execute the provided script to add the `vfc.inf` to the OEM driver store:
+2. Enter the folder with **Administartor Powerhshell** and execute the provided script to add the `vfc.inf` to the OEM driver store:
 ```
-.\devcon.exe dp_add .\VFC.inf | Out-File -FilePath .\HDMI_Install_Log.txt -Append
+.\overlay_installer.ps1
 ```
 3. This script will create a text file with the OEM store name of our installed INF to allow easy de-installation if any issues are faced, please see Uninstalling the update below. During the installation you will be prompted to trust the installation of the new overlay; please click OK. The script will also update the driver for devices currently installed in the system, if there are any (identified using their VID 0403 and PID 6030 under HI Devices in Device Manager.
 
