@@ -4,20 +4,13 @@
 
 [Version]
 Signature   ="$WINDOWS NT$"
-Class       =DisguiseWDF
-ClassGuid   ={2bd52755-65f2-4f6e-969e-ef627c7e56d1}
+Class       =HIDClass
+ClassGuid   ={745a17a0-74d3-11d0-b6fe-00a0c90f57da}
 Provider    =%VendorName%
-DriverVer   =08/27/2020,1.0.0.4
+DriverVer   =05/01/2020,1.0.0.3
 CatalogFile =VFC.cat
 
 ; ================= Class section =====================
-[ClassInstall32]
-Addreg=DisguiseWDFClassReg     
-
-[DisguiseWDFClassReg]
-HKR,,,0,%ClassName%
-HKR,,Icon,,-5
-
 [ControlFlags]
 ExcludeFromSelect=*
 
@@ -53,8 +46,6 @@ HKR,,"AllowIdleIrpInD3",0x00010001,0x1
 HKR,,"LegacyTouchScaling",0x00010001,0
 HKR,,"WriteReportExSupported",0x00010001,0x1
 HKR,,"DeviceResetNotificationEnabled",0x00010001,1
-; Custom
-[HKR,,DeviceType,0x10001,device-type] 
 
 [VFC_HDMI_Device_Install.DelReg.NT.HW]
 ; Remove the ExtPropDescSemaphore flag in case it is present from a previous install
@@ -64,4 +55,3 @@ HKR,,"ExtPropDescSemaphore"
 VendorName = "disguise"
 DiskName   = "disguise Installation Disk"
 vfc_hdmi.DeviceDesc = "VFC HDMI"
-ClassName      ="disguise"
